@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Watermark Studio | Add Watermarks to Every Page</title>
+  <meta name="description" content="Upload any PDF and instantly add a custom text watermark to every page. Free, secure, and works entirely in your browser." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <rect width="32" height="32" rx="8" fill="url(#logoGrad)"/>
+          <path d="M8 10h12M8 14h16M8 18h10M8 22h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 18l4 4m0 0l-4 4m4-4H16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32">
+              <stop stop-color="#6366f1"/>
+              <stop offset="1" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <span>WatermarkPDF</span>
+      </div>
+      <div class="header-badge">
+        <span class="badge-dot"></span>
+        100% Browser-Based · No Upload to Server
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-tag">✦ Free PDF Watermarking Tool</div>
+      <h1 class="hero-title">Add Watermarks to <span class="gradient-text">Every Page</span> of Your PDF</h1>
+      <p class="hero-sub">Upload your PDF, customize your watermark, and download the stamped version instantly. Fully private — everything happens in your browser.</p>
+    </section>
+
+    <!-- App Container -->
+    <div class="app-container">
+
+      <!-- Step 1: Upload -->
+      <div class="step-card" id="upload-section">
+        <div class="step-header">
+          <div class="step-num">01</div>
+          <div>
+            <h2 class="step-title">Upload Your PDF</h2>
+            <p class="step-desc">Drag & drop or click to select a PDF file</p>
+          </div>
+        </div>
+
+        <div class="drop-zone" id="drop-zone">
+          <input type="file" id="pdf-input" accept=".pdf" hidden />
+          <div class="drop-icon">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+              <circle cx="28" cy="28" r="28" fill="rgba(99,102,241,0.12)"/>
+              <path d="M28 38V26M28 26l-5 5M28 26l5 5" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="16" y="18" width="24" height="30" rx="3" stroke="#6366f1" stroke-width="2" fill="none"/>
+              <path d="M22 32h12M22 36h8" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="drop-title">Drop your PDF here</p>
+          <p class="drop-sub">or <button class="drop-btn" onclick="document.getElementById('pdf-input').click()">browse files</button></p>
+          <p class="drop-hint">Supports PDF files up to 100MB</p>
+        </div>
+
+        <div class="file-info hidden" id="file-info">
+          <div class="file-icon">📄</div>
+          <div class="file-details">
+            <span class="file-name" id="file-name">document.pdf</span>
+            <span class="file-meta" id="file-meta">0 pages · 0 KB</span>
+          </div>
+          <button class="file-remove" id="remove-file" title="Remove file">✕</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Watermark Options -->
+      <div class="step-card" id="options-section">
+        <div class="step-header">
+          <div class="step-num">02</div>
+          <div>
+            <h2 class="step-title">Customize Watermark</h2>
+            <p class="step-desc">Configure text, logo, date, and position</p>
+          </div>
+        </div>
+
+        <!-- ── Text Watermark ── -->
+        <div class="section-label">
+          <span class="section-label-icon">🔤</span> Text Watermark
+        </div>
+        <div class="options-grid">
+
+          <div class="option-group full-width">
+            <label class="option-label" for="wm-text">Watermark Text</label>
+            <input type="text" id="wm-text" class="option-input" placeholder="e.g. CONFIDENTIAL, DRAFT, Sample..." value="CONFIDENTIAL" maxlength="60" />
+          </div>
+
+          <div class="option-group">
+            <label class="option-label" for="wm-color">Text Color</label>
+            <div class="color-picker-wrap">
+              <input type="color" id="wm-color" class="color-input" value="#ff0000" />
+              <span class="color-hex" id="color-hex">#ff0000</span>
+            </div>
+          </div>
+
+          <div class="option-group">
+            <label class="option-label" for="wm-opacity">Opacity: <span id="opacity-val">30</span>%</label>
+            <input type="range" id="wm-opacity" class="range-input" min="5" max="80" value="30" />
+          </div>
+
+          <div class="option-group">
+            <label class="option-label" for="wm-size">Font Size: <span id="size-val">60</span>px</label>
+            <input type="range" id="wm-size" class="range-input" min="20" max="120" value="60" />
+          </div>
+
+          <div class="option-group">
+            <label class="option-label" for="wm-rotation">Rotation: <span id="rotation-val">-45</span>°</label>
+            <input type="range" id="wm-rotation" class="range-input" min="-90" max="90" value="-45" />
+          </div>
+
+          <div class="option-group full-width">
+            <label class="option-label">Group Position <span class="pos-hint">Logo · Text · Date appear together here</span></label>
+            <div class="position-grid" id="position-grid">
+              <button class="pos-btn" data-pos="top-left">↖</button>
+              <button class="pos-btn" data-pos="top-center">↑</button>
+              <button class="pos-btn" data-pos="top-right">↗</button>
+              <button class="pos-btn" data-pos="middle-left">←</button>
+              <button class="pos-btn active" data-pos="center">⊕</button>
+              <button class="pos-btn" data-pos="middle-right">→</button>
+              <button class="pos-btn" data-pos="bottom-left">↙</button>
+              <button class="pos-btn" data-pos="bottom-center">↓</button>
+              <button class="pos-btn" data-pos="bottom-right">↘</button>
+            </div>
+          </div>
+
+          <div class="option-group full-width">
+            <label class="option-label">Repeat Pattern</label>
+            <div class="toggle-row">
+              <label class="toggle">
+                <input type="checkbox" id="wm-repeat" />
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label">Tile watermark across entire page</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ── Date Watermark (Optional) ── -->
+        <div class="optional-divider"></div>
+        <div class="optional-panel" id="date-panel">
+          <div class="optional-header" id="date-toggle">
+            <div class="optional-header-left">
+              <label class="toggle">
+                <input type="checkbox" id="date-enabled" />
+                <span class="toggle-slider"></span>
+              </label>
+              <div class="optional-title-group">
+                <span class="optional-icon">📅</span>
+                <div>
+                  <div class="optional-title">Date Watermark <span class="optional-badge">Optional</span></div>
+                  <div class="optional-sub">Stamped at the bottom-right corner of every page</div>
+                </div>
+              </div>
+            </div>
+            <span class="chevron" id="date-chevron">▸</span>
+          </div>
+
+          <div class="optional-body hidden" id="date-body">
+            <div class="options-grid">
+              <div class="option-group full-width">
+                <label class="option-label">Date Mode</label>
+                <div class="radio-group">
+                  <label class="radio-option">
+                    <input type="radio" name="date-mode" id="date-mode-today" value="today" checked />
+                    <span class="radio-custom"></span>
+                    <span>Today's date (auto)</span>
+                  </label>
+                  <label class="radio-option">
+                    <input type="radio" name="date-mode" id="date-mode-custom" value="custom" />
+                    <span class="radio-custom"></span>
+                    <span>Custom date</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="option-group hidden" id="custom-date-group">
+                <label class="option-label" for="wm-custom-date">Custom Date</label>
+                <input type="date" id="wm-custom-date" class="option-input" />
+              </div>
+
+              <div class="option-group">
+                <label class="option-label" for="date-format">Date Format</label>
+                <select id="date-format" class="option-input option-select">
+                  <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                  <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                  <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                  <option value="DD MMM YYYY">DD MMM YYYY</option>
+                  <option value="MMM DD, YYYY">MMM DD, YYYY</option>
+                  <option value="DD/MM/YYYY HH:mm">DD/MM/YYYY HH:mm</option>
+                </select>
+              </div>
+
+              <div class="option-group">
+                <label class="option-label" for="date-color">Date Color</label>
+                <div class="color-picker-wrap">
+                  <input type="color" id="date-color" class="color-input" value="#333333" />
+                  <span class="color-hex" id="date-color-hex">#333333</span>
+                </div>
+              </div>
+
+              <div class="option-group">
+                <label class="option-label" for="date-size">Font Size: <span id="date-size-val">14</span>px</label>
+                <input type="range" id="date-size" class="range-input" min="8" max="36" value="14" />
+              </div>
+
+              <div class="option-group">
+                <label class="option-label" for="date-opacity">Opacity: <span id="date-opacity-val">80</span>%</label>
+                <input type="range" id="date-opacity" class="range-input" min="10" max="100" value="80" />
+              </div>
+
+              <div class="option-group full-width">
+                <div class="combined-hint">📌 Date is always stamped at the <strong>bottom-right corner</strong>, independent of the watermark text position</div>
+              </div>
+
+              <div class="option-group full-width">
+                <label class="option-label">Date Preview</label>
+                <div class="date-preview-box" id="date-preview-box">
+                  <span id="date-preview-text">06/04/2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Step 3: Preview & Apply -->
+      <div class="step-card" id="preview-section">
+        <div class="step-header">
+          <div class="step-num">03</div>
+          <div>
+            <h2 class="step-title">Preview & Download</h2>
+            <p class="step-desc">See the watermark applied, then export your PDF</p>
+          </div>
+        </div>
+
+        <div class="preview-actions">
+          <button class="btn-primary" id="apply-btn" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 20h9M16.5 3.5l4 4L7 21l-4 1 1-4L16.5 3.5z"/>
+            </svg>
+            Apply Watermark
+          </button>
+          <button class="btn-secondary" id="download-btn" disabled>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            Download PDF
+          </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-wrap hidden" id="progress-wrap">
+          <div class="progress-label">Processing pages… <span id="progress-text">0 / 0</span></div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progress-bar"></div>
+          </div>
+        </div>
+
+        <!-- Preview Canvas Area -->
+        <div class="preview-area" id="preview-area">
+          <div class="preview-placeholder" id="preview-placeholder">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" opacity="0.4">
+              <rect x="12" y="8" width="40" height="48" rx="4" stroke="#6366f1" stroke-width="2"/>
+              <path d="M20 22h24M20 30h24M20 38h16" stroke="#6366f1" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <p>Apply watermark to see live preview</p>
+          </div>
+          <div class="canvas-pages" id="canvas-pages"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features strip -->
+    <div class="features-strip">
+      <div class="feature-item">
+        <span class="feature-icon">🔒</span>
+        <span>100% Private</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">⚡</span>
+        <span>Instant Processing</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">📄</span>
+        <span>All PDF Versions</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎨</span>
+        <span>Fully Customizable</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🆓</span>
+        <span>Completely Free</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast hidden" id="toast">
+    <span id="toast-msg">Message here</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
