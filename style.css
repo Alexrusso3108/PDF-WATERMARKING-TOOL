@@ -805,12 +805,35 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 999px; }
 
-/* ── Responsive ── */
+/* ── Responsive Mobile & Tablet ── */
+@media (max-width: 768px) {
+  .hero { padding: 48px 0 32px; }
+  .hero-title { font-size: clamp(1.8rem, 4vw, 2.4rem); }
+  .features-strip { gap: 20px; padding-top: 32px; margin-top: 40px; }
+  .feature-item { font-size: 0.8rem; }
+  .main { padding: 0 16px 60px; }
+  .step-card { padding: 24px 20px; }
+  
+  .header-inner { justify-content: center; }
+  .header-badge { display: none; } /* Hide badge on tablet/mobile to save space */
+}
+
 @media (max-width: 640px) {
-  .header-badge { display: none; }
-  .options-grid { grid-template-columns: 1fr; }
-  .step-card { padding: 22px 18px; }
-  .hero { padding: 48px 0 40px; }
+  .options-grid { grid-template-columns: 1fr; gap: 16px; }
   .preview-actions { flex-direction: column; }
-  .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; padding: 14px; }
+  
+  .step-header { margin-bottom: 20px; gap: 14px; }
+  .step-num { padding: 4px 8px; font-size: 0.65rem; }
+  .step-title { font-size: 1.15rem; }
+  
+  .position-grid { max-width: 100%; }
+  .file-info { flex-direction: column; text-align: center; }
+  .file-details { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .drop-zone { padding: 32px 16px; }
+  .radio-group { flex-direction: column; gap: 12px; }
+  .toast { width: 90%; text-align: center; white-space: normal; }
 }
